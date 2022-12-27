@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>dotnet_graphql_harperdb</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Author.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\BookSeed.json" />
+    <Content Remove="Data\SpeakerSeed.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HarperDB.NET.Client" Version="1.1.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
