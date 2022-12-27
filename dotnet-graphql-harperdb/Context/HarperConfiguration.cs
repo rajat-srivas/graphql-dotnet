@@ -12,7 +12,7 @@ namespace GraphQL.Context
 			return new HarperDbConfiguration()
 			{
 				InstanceUrl = "https://graphql-dotnet-coredemo.harperdbcloud.com",
-				AuthToken = "YWRtaW46YWRtaW4=",
+				AuthToken = "=",
 				Schema = "graphql"
 			};
 		}
