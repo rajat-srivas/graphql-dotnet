@@ -1,8 +1,6 @@
-﻿using dotnet_graphql_harperdb.Context;
-using dotnet_graphql_harperdb.Services;
+﻿using dotnet_graphql_harperdb.Services;
 using GraphQL.Data;
 using GreenDonut;
-using HotChocolate.DataLoader;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dotnet_graphql_harperdb.GraphQL.DataLoaders
 {
-	public class SpeakerByIdDataLoader : BatchDataLoader<string, Speaker>
+	public class SpeakerByIdDataLoader : HotChocolate.DataLoader.BatchDataLoader<string, Speaker>
 	{
 		ISpeakerRepository _repository;
 		public SpeakerByIdDataLoader(ISpeakerRepository repository,IBatchScheduler _batchScheduler ): base( _batchScheduler )

@@ -1,5 +1,4 @@
 using dotnet_graphql_harperdb.Context;
-using dotnet_graphql_harperdb.GraphQL.DataLoaders;
 using dotnet_graphql_harperdb.GraphQL.Mutation;
 using dotnet_graphql_harperdb.GraphQL.Query;
 using dotnet_graphql_harperdb.Services;
@@ -10,6 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using HotChocolate.AspNetCore.Authorization;
+using dotnet_graphql_harperdb.GraphQL.Mutations;
+using dotnet_graphql_harperdb.Helpers;
+using GraphQL.Mutations;
 
 namespace dotnet_graphql_harperdb
 {
@@ -25,15 +28,19 @@ namespace dotnet_graphql_harperdb
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-
+			services.AddAuthorization();
 			services.AddControllers();
 			services.AddSingleton<IHarperConfiguration, HarperConfigurations>();
 			services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
 			services.AddSingleton<ISpeakerRepository, SpeakerRepository>();
+			services.AddSingleton<AuthHelpers, AuthHelpers>();
+			services.AddSingleton<IUserRepository, UserRepository>();
 			services.AddGraphQLServer()
-				.AddQueryType<Query>()
-				.AddDataLoader<SpeakerByIdDataLoader>()
-				.AddMutationType<CreateSpeakerMutation>();
+				.AddAuthorization()
+		   .AddQueryType<Query>()
+		   .AddMutationType<MutationAggregator>()
+			.AddTypeExtension<CreateSpeakerMutation>()
+			 .AddTypeExtension<AuthMutation>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +53,7 @@ namespace dotnet_graphql_harperdb
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

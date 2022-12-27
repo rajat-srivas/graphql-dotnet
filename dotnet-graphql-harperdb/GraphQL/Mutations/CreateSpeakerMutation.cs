@@ -1,9 +1,13 @@
 ﻿using dotnet_graphql_harperdb.Services;
 using GraphQL.Data;
+using GraphQL.Mutations;
+using HotChocolate.Types;
 using System.Threading.Tasks;
 
 namespace dotnet_graphql_harperdb.GraphQL.Mutation
 {
+	[ExtendObjectType(Name = "MutationAggregator")]
+
 	public class CreateSpeakerMutation
 	{
 		ISpeakerRepository _repository;

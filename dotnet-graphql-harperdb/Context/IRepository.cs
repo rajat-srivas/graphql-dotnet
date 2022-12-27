@@ -1,4 +1,5 @@
-﻿using GraphQL.Data;
+﻿using dotnet_graphql_harperdb.Data;
+using GraphQL.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,5 +13,8 @@ namespace dotnet_graphql_harperdb.Context
 		public Task<string> Create(T itemToCreate, string tableName);
 
 		public Task<bool> Delete(string id, string tableName);
+
+		Task<T> CheckUserCred(string email, string password, string tableName);
+
 	}
 }

@@ -17,11 +17,20 @@
   <ItemGroup>
     <PackageReference Include="HarperDB.NET.Client" Version="1.1.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>

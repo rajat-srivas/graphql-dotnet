@@ -1,13 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using HotChocolate.AspNetCore.Authorization;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphQL.Data
 {
+	[Authorize]
 	public class Speaker
 	{
 		[JsonProperty(PropertyName = "id")]

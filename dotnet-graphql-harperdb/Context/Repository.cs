@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GraphQL.Data;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Hosting;
+using dotnet_graphql_harperdb.Data;
 
 namespace dotnet_graphql_harperdb.Context
 {
@@ -47,6 +48,18 @@ namespace dotnet_graphql_harperdb.Context
 		public Task<bool> Delete(string id, string tableName)
 		{
 			throw new System.NotImplementedException();
+		}
+
+		public async Task<T> CheckUserCred(string email, string password, string tableName)
+		{
+			_client = new HarperClientAsync(_dbConfig, tableName);
+			var response = await _client.ExecuteQueryAsync($"SELECT * FROM {_dbConfig.Schema}.{tableName} T WHERE T.Email =  \"{email}\" AND T.Password =  \"{password}\"");
+			var speakers = JsonConvert.DeserializeObject<List<T>>(response.Content);
+			if(speakers != null && speakers.Count > 0)
+			{
+				return speakers[0];
+			}
+			return null;
 		}
 	}
 }

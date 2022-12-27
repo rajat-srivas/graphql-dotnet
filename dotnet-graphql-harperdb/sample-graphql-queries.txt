@@ -1,0 +1,28 @@
+--Create User
+
+mutation RegisterUser{
+  userRegistration(
+    registrationData: {
+    userId:"aas127812013madasd",
+    firstName: "Rajat",
+    lastName: "Srivastava",
+    email: "rajat.sedate@gmail.com",
+    password:"Hello@123",
+    gender:"M"
+  })
+}
+
+--Login
+
+
+mutation Login{
+  loginUser(
+    userDetails: {
+    eamil: "rajat.sedate@gmail.com",
+    password:"Hello@123"
+  }){
+      token
+  }
+  }
+
+
