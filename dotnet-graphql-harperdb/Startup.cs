@@ -16,6 +16,7 @@ using GraphQL.Mutations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Security.Claims;
 
 namespace dotnet_graphql_harperdb
 {
@@ -55,23 +56,14 @@ namespace dotnet_graphql_harperdb
 			{
 				options.AddPolicy("GeneralUser", policy =>
 				{
-					policy.RequireClaim("UserRole", "R");
+					policy.RequireClaim(ClaimTypes.Role, "R");
 				});
 			});
 
-
 			services.AddControllers();
-			services.AddSingleton<IHarperConfiguration, HarperConfigurations>();
-			services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
-			services.AddSingleton<ISpeakerRepository, SpeakerRepository>();
-			services.AddSingleton<AuthHelpers, AuthHelpers>();
-			services.AddSingleton<IUserRepository, UserRepository>();
-			services.AddGraphQLServer()
-				.AddAuthorization()
-		   .AddQueryType<Query>()
-		   .AddMutationType<MutationAggregator>()
-			.AddTypeExtension<CreateSpeakerMutation>()
-			 .AddTypeExtension<AuthMutation>();
+			services.InjectServices();
+			services.InjectGraphQLDependencies();
+		
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

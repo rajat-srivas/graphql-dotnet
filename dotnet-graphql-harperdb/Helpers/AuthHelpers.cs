@@ -6,12 +6,14 @@ using System.Text;
 using System;
 using dotnet_graphql_harperdb.Data;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace dotnet_graphql_harperdb.Helpers
 {
 	public class AuthHelpers
 	{
-		readonly IConfiguration _config;
+		public static IConfiguration _config;
 
 		public AuthHelpers(IConfiguration config)
 		{
