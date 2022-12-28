@@ -1,4 +1,5 @@
 ﻿using dotnet_graphql_harperdb.Data;
+using dotnet_graphql_harperdb.GraphQL.Schema.SharedSchema;
 using dotnet_graphql_harperdb.Helpers;
 using dotnet_graphql_harperdb.Services;
 using GraphQL.Mutations;

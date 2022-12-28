@@ -13,15 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Author.cs" />
+    <Compile Remove="DataModels\Author.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Data\BookSeed.json" />
-    <Content Remove="Data\SpeakerSeed.json" />
+    <Content Remove="DataModels\BookSeed.json" />
+    <Content Remove="DataModels\SpeakerSeed.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="HarperDB.NET.Client" Version="1.1.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
     <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0" />
@@ -34,6 +36,11 @@
   
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="GraphQL\Schema\SharedSchema\" />
+    <Folder Include="GraphQL\Schema\QuerySchema\" />
   </ItemGroup>
 
 </Project>

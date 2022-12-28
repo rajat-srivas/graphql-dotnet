@@ -14,7 +14,9 @@ namespace dotnet_graphql_harperdb.Context
 
 		public Task<bool> Delete(string id, string tableName);
 
-		Task<T> CheckUserCred(string email, string password, string tableName);
+		public Task<bool> Update(T itemToUpdate, string tableName);
 
+		Task<T> CheckUserCred(string email, string password, string tableName);
+		Task<List<T>> GetByName(string name, string table_Name);
 	}
 }

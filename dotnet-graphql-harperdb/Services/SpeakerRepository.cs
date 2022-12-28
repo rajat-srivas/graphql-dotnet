@@ -23,7 +23,7 @@ namespace GraphQL.Services
 			_repo = repo;
 		}
 
-		public async Task<List<Speaker>> GetSpeaker(string id)
+		public async Task<List<Speaker>> GetSpeakerById(string id)
 		{
 			return await _repo.GetById(id, Table_Name);
 		}
@@ -56,6 +56,17 @@ namespace GraphQL.Services
 
 			});
 			return await _repo.Create(speakerToCreate, Table_Name);
+		}
+
+		public async Task<List<Speaker>> GetSpeakerByName(string name)
+		{
+			return await _repo.GetByName(name, Table_Name);
+		}
+
+		public async Task<string> UpdateSpeaker(Speaker speakerToUpdate)
+		{
+			var result = await _repo.Update(speakerToUpdate, Table_Name);
+			return result ? speakerToUpdate.Id : null;
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using dotnet_graphql_harperdb.Data;
+﻿using AutoMapper;
+using dotnet_graphql_harperdb.Data;
+using dotnet_graphql_harperdb.GraphQL.Schema.MutationSchema;
 using dotnet_graphql_harperdb.Services;
 using HotChocolate;
 using System.Threading.Tasks;
@@ -8,16 +10,19 @@ namespace GraphQL.Mutations
 	public class MutationAggregator
 	{
 		IUserRepository _repository;
-		public MutationAggregator(IUserRepository repo)
+		IMapper _mapper;
+		public MutationAggregator(IUserRepository repo, IMapper mapper)
 		{
 			_repository= repo;
+			_mapper= mapper;
 		}
 
 		[GraphQLDescription("Register a new user")]
-		public async Task<string> UserRegistration(User registrationData)
+		public async Task<string> UserRegistration(UserType registrationData)
 		{
-			if (registrationData != null && string.IsNullOrEmpty(registrationData.UserRole)) { registrationData.UserRole = "R"; }
-			string registeredUserId = await _repository.CreateUser(registrationData);
+			var user = _mapper.Map<User>(registrationData);
+			if (registrationData != null && string.IsNullOrEmpty(user.UserRole)) { user.UserRole = "R"; }
+			string registeredUserId = await _repository.CreateUser(user);
 
 			if (!string.IsNullOrEmpty(registeredUserId))
 			{
@@ -25,7 +30,7 @@ namespace GraphQL.Mutations
 			}
 			else
 			{
-				return "Something went wrong, User Registration Failed";
+				throw new GraphQLException(new Error("Something went wrong!", "User_Registration_Failed"));
 			}
 		}
 	}

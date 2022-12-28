@@ -1,6 +1,6 @@
 ﻿using GraphQL.Data;
 
-namespace dotnet_graphql_harperdb.GraphQL.Mutation
+namespace dotnet_graphql_harperdb.GraphQL.Schema.SharedSchema
 {
 	public class SpeakerPayload
 	{

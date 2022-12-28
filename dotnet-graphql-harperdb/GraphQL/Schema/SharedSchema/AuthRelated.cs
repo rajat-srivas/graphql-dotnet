@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace dotnet_graphql_harperdb.Data
+namespace dotnet_graphql_harperdb.GraphQL.Schema.SharedSchema
 {
 	public class UserLogin
 	{

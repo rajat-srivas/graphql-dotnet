@@ -54,12 +54,27 @@ namespace dotnet_graphql_harperdb.Context
 		{
 			_client = new HarperClientAsync(_dbConfig, tableName);
 			var response = await _client.ExecuteQueryAsync($"SELECT * FROM {_dbConfig.Schema}.{tableName} T WHERE T.Email =  \"{email}\" AND T.Password =  \"{password}\"");
-			var speakers = JsonConvert.DeserializeObject<List<T>>(response.Content);
-			if(speakers != null && speakers.Count > 0)
+			var result = JsonConvert.DeserializeObject<List<T>>(response.Content);
+			if(result != null && result.Count > 0)
 			{
-				return speakers[0];
+				return result[0];
 			}
 			return null;
+		}
+
+		public async Task<List<T>> GetByName(string name, string table_Name)
+		{
+			_client = new HarperClientAsync(_dbConfig, table_Name);
+			var response = await _client.ExecuteQueryAsync($"SELECT * FROM {_dbConfig.Schema}.{table_Name} T WHERE T.Name =  \"{name}\"");
+			var data = JsonConvert.DeserializeObject<List<T>>(response.Content);
+			return data;
+		}
+
+		public async Task<bool> Update(T itemToUpdate, string tableName)
+		{
+			_client = new HarperClientAsync(_dbConfig, tableName);
+			var result = await _client.UpdateRecordAsync<T>(itemToUpdate);
+			return result.IsSuccessful;
 		}
 	}
 }

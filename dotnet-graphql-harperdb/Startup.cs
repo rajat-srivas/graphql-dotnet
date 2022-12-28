@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
+using AutoMapper;
 
 namespace dotnet_graphql_harperdb
 {
@@ -51,6 +52,14 @@ namespace dotnet_graphql_harperdb
 					ValidateIssuerSigningKey = true
 				};
 			});
+
+			var mapperConfig = new MapperConfiguration(m =>
+			{
+				m.AddProfile(new MappingProfiles());
+			});
+
+			IMapper mapper = mapperConfig.CreateMapper();
+			services.AddSingleton(mapper);
 
 			services.AddAuthorization(options =>
 			{

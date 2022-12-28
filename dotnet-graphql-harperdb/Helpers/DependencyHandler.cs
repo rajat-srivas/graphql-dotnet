@@ -22,7 +22,7 @@ namespace dotnet_graphql_harperdb.Helpers
 					.AddAuthorization()
 					.AddQueryType<Query>()
 					.AddMutationType<MutationAggregator>()
-					.AddTypeExtension<CreateSpeakerMutation>()
+					.AddTypeExtension<SpeakerMutations>()
 					.AddTypeExtension<AuthMutation>();
 		}
 

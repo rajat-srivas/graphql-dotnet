@@ -3,10 +3,9 @@
 mutation RegisterUser{
   userRegistration(
     registrationData: {
-    userId:"aas127812013madasd",
-    firstName: "Rajat",
-    lastName: "Srivastava",
-    email: "rajat.sedate@gmail.com",
+    firstName: "Hello",
+    lastName: "Graphql",
+    email: "hello@gmail.com",
     password:"Hello@123",
     gender:"M"
   })
@@ -18,11 +17,66 @@ mutation RegisterUser{
 mutation Login{
   loginUser(
     userDetails: {
-    eamil: "rajat.sedate@gmail.com",
+    eamil: "hello@gmail.com",
     password:"Hello@123"
   }){
       token
   }
   }
 
+-- Http header sample
+
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicmFqYXQuc2VkYXRlQGdtYWlsLmNvbSIsInVzZXJJZCI6ImFhczEyNzgxMjAxM21hZGFzZCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlIiLCJleHAiOjE2NzIyODkzNDMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6MTE1NzMiLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjExNTczIn0.UBfmN2qm-Rl8RC5hvDmk0FhMNyY7y-tjkvkaMRbtyHM"
+}
+
+-- Speaker by Name
+{
+  speakerByName(name:"Rajat Srivastava"){
+    id,
+    name
+    bio,
+    books{
+      isbn,
+      title
+    }
+  }
+}
+
+-- all speakers
+
+{
+  speakers{
+    name,
+    id
+    books{
+      title
+    }
+  }
+}
+
+
+--update speaker
+
+mutation {
+  updateSpeaker(id:"6050a5f0-70d9-49cc-bf1d-45b08efff51a",
+  speaker: {
+   	name: "Harrell J Talley",
+		bio: "Cupidatat updated aute officia adipisicing deserunt nostrud dolore consequat. Irure cupidatat enim sint eu ipsum aliquip aliquip ad sunt. Tempor officia consectetur deserunt incididunt nulla non. Magna velit qui magna pariatur eiusmod est aliqua officia pariatur sint in aliquip mollit eu. Ipsum ex in occaecat aliquip velit enim aute sit consequat velit.\r\n",
+		books: [
+			{
+				isbn: "63aabc6c4e355b124f88828c",
+				title: "Kaggle",
+				pages: 100,
+				description: "Aute voluptate et ullamco tempor ex ipsum et Lorem anim nulla ut in et. Ex proident tempor duis do culpa do laboris et ipsum qui enim. Fugiat do dolore commodo ullamco cupidatat est pariatur aliquip.\r\n"
+			}
+		]
+}) {
+  speaker{
+    name,
+    id,
+    bio
+  }
+}
+}
 

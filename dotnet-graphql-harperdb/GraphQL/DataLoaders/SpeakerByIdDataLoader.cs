@@ -18,7 +18,7 @@ namespace dotnet_graphql_harperdb.GraphQL.DataLoaders
 
 		protected override async Task<IReadOnlyDictionary<string, Speaker>> LoadBatchAsync(IReadOnlyList<string> keys, CancellationToken cancellationToken)
 		{
-			var speaker = await _repository.GetSpeaker(keys[0]);
+			var speaker = await _repository.GetSpeakerById(keys[0]);
 			return speaker.ToDictionary(x => x.Id);
 		}
 	}
