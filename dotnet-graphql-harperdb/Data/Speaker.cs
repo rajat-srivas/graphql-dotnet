@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GraphQL.Data
 {
-	[Authorize]
 	public class Speaker
 	{
 		[JsonProperty(PropertyName = "id")]

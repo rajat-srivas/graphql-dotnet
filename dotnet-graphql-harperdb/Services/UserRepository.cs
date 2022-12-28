@@ -1,6 +1,7 @@
 ﻿using dotnet_graphql_harperdb.Context;
 using dotnet_graphql_harperdb.Data;
 using GraphQL.Data;
+using System;
 using System.Threading.Tasks;
 
 namespace dotnet_graphql_harperdb.Services
@@ -21,6 +22,10 @@ namespace dotnet_graphql_harperdb.Services
 
 		public async Task<string> CreateUser(User user)
 		{
+			if (string.IsNullOrEmpty(user.UserId))
+			{
+				user.UserId = Guid.NewGuid().ToString();
+			}
 			return await _repo.Create(user, Table_Name);
 		}
 	}

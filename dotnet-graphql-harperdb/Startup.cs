@@ -13,6 +13,9 @@ using HotChocolate.AspNetCore.Authorization;
 using dotnet_graphql_harperdb.GraphQL.Mutations;
 using dotnet_graphql_harperdb.Helpers;
 using GraphQL.Mutations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace dotnet_graphql_harperdb
 {
@@ -28,7 +31,35 @@ namespace dotnet_graphql_harperdb
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddAuthorization();
+
+			services.AddAuthentication(options =>
+			{
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(x =>
+			{
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidIssuer = Configuration["Jwt:Issuer"],
+					ValidAudience = Configuration["Jwt:Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = false,
+					ValidateIssuerSigningKey = true
+				};
+			});
+
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy("GeneralUser", policy =>
+				{
+					policy.RequireClaim("UserRole", "R");
+				});
+			});
+
+
 			services.AddControllers();
 			services.AddSingleton<IHarperConfiguration, HarperConfigurations>();
 			services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
