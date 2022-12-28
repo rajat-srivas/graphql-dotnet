@@ -37,12 +37,10 @@ namespace dotnet_graphql_harperdb.GraphQL.Query
 
 		[Authorize(Policy = "GeneralUser")]
 		[GraphQLDescription("Get speaker by Id")]
-
-        // Using a data loader helps in caching so for same id it will alays return the same data
-        public async Task<Speaker> GetSpeakerById(string id, SpeakerByIdDataLoader loader, CancellationToken token)
+        public async Task<List<Speaker>> GetSpeakerById(string id)
         {
-            var data = await loader.LoadAsync(id, token);
-            return data;
+            var data = await _repository.GetSpeakerById(id);
+			return data;
         }
 
 		[Authorize(Policy = "GeneralUser")]

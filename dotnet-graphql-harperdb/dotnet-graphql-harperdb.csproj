@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\**" />
+    <Compile Remove="GraphQL\DataLoaders\**" />
     <Content Remove="Controllers\**" />
+    <Content Remove="GraphQL\DataLoaders\**" />
     <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="GraphQL\DataLoaders\**" />
     <None Remove="Controllers\**" />
+    <None Remove="GraphQL\DataLoaders\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,9 +31,9 @@
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="HarperDB.NET.Client" Version="1.1.0" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.0.0" />
-    <PackageReference Include="HotChocolate.Data" Version="11.0.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.15.2" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.15.2" />
+    <PackageReference Include="HotChocolate.Data" Version="12.15.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
@@ -42,7 +46,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="GraphQL\DataLoaders\" />
     <Folder Include="GraphQL\Schema\SharedSchema\" />
     <Folder Include="GraphQL\Schema\QuerySchema\" />
   </ItemGroup>
