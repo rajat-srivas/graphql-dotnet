@@ -1,5 +1,5 @@
 ﻿using dotnet_graphql_harperdb.Context;
-using dotnet_graphql_harperdb.GraphQL.DataLoaders;
+using dotnet_graphql_harperdb.GraphQL.Mutations;
 using dotnet_graphql_harperdb.Services;
 using GraphQL.Data;
 using HotChocolate;
@@ -23,6 +23,7 @@ namespace dotnet_graphql_harperdb.GraphQL.Query
         }
 
 		[Authorize(Policy = "GeneralUser")]
+        [UsePaging(IncludeTotalCount =true)]
 		[GraphQLDescription("Get all speakers")]
 
 		public async Task<IQueryable<Speaker>> GetSpeakers()

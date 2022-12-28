@@ -39,6 +39,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Folder Include="GraphQL\DataLoaders\" />
     <Folder Include="GraphQL\Schema\SharedSchema\" />
     <Folder Include="GraphQL\Schema\QuerySchema\" />
   </ItemGroup>

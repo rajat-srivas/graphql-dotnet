@@ -80,3 +80,23 @@ mutation {
 }
 }
 
+--All speakers with pagination
+{
+  speakers(first: 3){
+   edges{
+     node{
+        name,
+    id
+    books{
+      title
+     }
+   },
+   cursor
+    },
+    pageInfo{
+      endCursor
+    }
+    totalCount
+  }
+}
+
