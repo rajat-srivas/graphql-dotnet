@@ -100,3 +100,31 @@ mutation {
   }
 }
 
+--Paginated and sorted and filtered
+{
+  speakers(first:3,
+  where:{
+    name:{
+      contains:"S"
+    }
+  }
+  order: {
+    name:ASC
+  } ){
+   edges{
+     node{
+        name,
+    id
+    books{
+      title
+     }
+   },
+   cursor
+    },
+    pageInfo{
+      endCursor
+    }
+    totalCount
+  }
+}
+

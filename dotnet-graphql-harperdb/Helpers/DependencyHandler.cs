@@ -23,7 +23,9 @@ namespace dotnet_graphql_harperdb.Helpers
 					.AddQueryType<Query>()
 					.AddMutationType<MutationAggregator>()
 					.AddTypeExtension<SpeakerMutations>()
-					.AddTypeExtension<AuthMutation>();
+					.AddTypeExtension<AuthMutation>()
+					.AddFiltering()
+					.AddSorting();
 		}
 
 		public static void InjectServices(this IServiceCollection services)
