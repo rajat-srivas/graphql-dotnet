@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using dotnet_graphql_harperdb.GraphQL.Schema.MutationSchema;
 using dotnet_graphql_harperdb.GraphQL.Schema.SharedSchema;
+using dotnet_graphql_harperdb.Helpers.Validators;
 using dotnet_graphql_harperdb.Services;
 using GraphQL.Data;
 using GraphQL.Mutations;
 using HotChocolate;
 using HotChocolate.AspNetCore.Authorization;
 using HotChocolate.Types;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace dotnet_graphql_harperdb.GraphQL.Mutation
@@ -17,10 +19,12 @@ namespace dotnet_graphql_harperdb.GraphQL.Mutation
 	{
 		ISpeakerRepository _repository;
 		private IMapper _mapper;
-		public SpeakerMutations(ISpeakerRepository repository, IMapper mapper)
+		SpeakerTypeValidator _speakerTypeValidator;
+		public SpeakerMutations(ISpeakerRepository repository, IMapper mapper, SpeakerTypeValidator validator)
 		{
 			_repository = repository;
 			_mapper = mapper;
+			_speakerTypeValidator = validator;
 		}
 		
 		[Authorize(Policy = "GeneralUser")]
@@ -28,6 +32,12 @@ namespace dotnet_graphql_harperdb.GraphQL.Mutation
 
 		public async Task<SpeakerPayload> CreateSpeaker(SpeakerType speaker)
 		{
+			var validationResult = _speakerTypeValidator.Validate(speaker);
+			if (!validationResult.IsValid)
+			{
+				throw new GraphQLException(new Error(string.Join(", ", validationResult.Errors.Select(x=> x.ErrorMessage))));
+			}
+
 			var speakerToAdd = _mapper.Map<Speaker>(speaker);
 			var id = await _repository.CreateSpeaker(speakerToAdd);
 			speakerToAdd.Id = id;
@@ -39,6 +49,11 @@ namespace dotnet_graphql_harperdb.GraphQL.Mutation
 		[GraphQLDescription("Update Speaker")]
 		public async Task<SpeakerPayload> UpdateSpeaker(string id, SpeakerType speaker)
 		{
+			var validationResult = _speakerTypeValidator.Validate(speaker);
+			if (!validationResult.IsValid)
+			{
+				throw new GraphQLException(new Error(string.Join(", ", validationResult.Errors.Select(x => x.ErrorMessage))));
+			}
 			var speakerToUpdate = _mapper.Map<Speaker>(speaker);
 			speakerToUpdate.Id = id;
 			var result = await _repository.UpdateSpeaker(speakerToUpdate);

@@ -2,7 +2,9 @@
 using dotnet_graphql_harperdb.GraphQL.Mutation;
 using dotnet_graphql_harperdb.GraphQL.Mutations;
 using dotnet_graphql_harperdb.GraphQL.Query;
+using dotnet_graphql_harperdb.Helpers.Validators;
 using dotnet_graphql_harperdb.Services;
+using FluentValidation.AspNetCore;
 using GraphQL.Context;
 using GraphQL.Mutations;
 using GraphQL.Services;
@@ -35,6 +37,8 @@ namespace dotnet_graphql_harperdb.Helpers
 			services.AddSingleton<ISpeakerRepository, SpeakerRepository>();
 			services.AddSingleton<AuthHelpers, AuthHelpers>();
 			services.AddSingleton<IUserRepository, UserRepository>();
+			services.AddFluentValidation();
+			services.AddTransient<SpeakerTypeValidator>();
 		}
 	}
 }
